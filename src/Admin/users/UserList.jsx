@@ -80,7 +80,11 @@ export default function UserList() {
 									<td>{user.phone}</td>
 									<td>{user.address}</td>
 									<td>{user.gender}</td>
-									<td>{user.role}</td>
+									<td>
+										<span className="badge badge-secondary">
+											{user.role}
+										</span>
+									</td>
 									<td>{user.dob}</td>
 									<td className="flex justify-center items-center gap-1">
 										<Link

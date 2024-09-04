@@ -10,7 +10,7 @@ export default function Dashboard() {
 	const fetchUsers = () => {
 		HttpClient.get("/users", {}, true)
 			.then((data) => {
-				setUsers(data.data);
+				setUsers(data.data.users);
 			})
 			.catch();
 	};

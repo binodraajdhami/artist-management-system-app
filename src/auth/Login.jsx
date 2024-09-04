@@ -34,8 +34,6 @@ export default function LoginPage() {
 		setSubmitting(true);
 		handleError();
 		if (formData.email != null && formData.password != null) {
-			console.log(formData);
-
 			HttpClient.post("/auth/login", { body: formData })
 				.then((data) => {
 					setSubmitting(false);
@@ -45,6 +43,14 @@ export default function LoginPage() {
 					}
 					if (data.data) {
 						notify.showSuccess("Login Successful!");
+						localStorage.setItem(
+							"user",
+							JSON.stringify({
+								id: data.data.user.id,
+								first_name: data.data.user.first_name,
+								role: data.data.user.role,
+							})
+						);
 						localStorage.setItem("token", data.data.token);
 						navigate("/admin/dashboard");
 					}

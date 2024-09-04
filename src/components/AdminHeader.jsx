@@ -30,15 +30,6 @@ export default function AdminHeader() {
 				>
 					<ul>
 						<li>
-							<Link
-								className="w-full flex items-center gap-1 px-6 pb-2 mb-2 border-b text-slate-500 hover:text-slate-800"
-								to=""
-							>
-								<FaCog />
-								<span>Profile</span>
-							</Link>
-						</li>
-						<li>
 							<button
 								onClick={handleLogout}
 								className="flex items-center gap-1 px-6 text-slate-500 hover:text-slate-800"

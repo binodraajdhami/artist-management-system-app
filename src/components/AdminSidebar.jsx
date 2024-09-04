@@ -7,6 +7,8 @@ import { FaUsers, FaGuitar } from "react-icons/fa";
 import AdminLogo from "./../assets/images/admin-logo.png";
 
 export default function AdminSidebar({ isAsideExpand, isHovering }) {
+	const user = JSON.parse(localStorage.getItem("user"));
+
 	return (
 		<>
 			<div
@@ -29,54 +31,62 @@ export default function AdminSidebar({ isAsideExpand, isHovering }) {
 			</div>
 			<nav className="nav-menu mt-[80px]">
 				<ul className="panel-main-menu">
-					<li>
-						<Link
-							to="/admin/artits"
-							className="w-full h-[50px] flex gap-2 items-center py-3 px-5 text-[18px] font-bold hover:bg-[#414452] text-[#eaeaea] border border-dashed border-transparent hover:border-admin-border-color transition-all ease-linear"
-						>
-							{isAsideExpand && !isHovering ? (
-								<FaGuitar />
-							) : (
-								<>
+					{(user.role === "SUPER_ADMIN" ||
+						user.role === "ARTIST_MANAGER") && (
+						<li>
+							<Link
+								to="/admin/artits"
+								className="w-full h-[50px] flex gap-2 items-center py-3 px-5 text-[18px] font-bold hover:bg-[#414452] text-[#eaeaea] border border-dashed border-transparent hover:border-admin-border-color transition-all ease-linear"
+							>
+								{isAsideExpand && !isHovering ? (
 									<FaGuitar />
-									<span>Artits</span>
-									<IoIosArrowDown className="ml-auto" />
-								</>
-							)}
-						</Link>
-					</li>
-					<li>
-						<Link
-							to="/admin/musics"
-							className="w-full h-[50px] flex gap-2 items-center py-3 px-5 text-[18px] font-bold hover:bg-[#414452] text-[#eaeaea] border border-dashed border-transparent hover:border-admin-border-color transition-all ease-linear"
-						>
-							{isAsideExpand && !isHovering ? (
-								<FaMusic />
-							) : (
-								<>
+								) : (
+									<>
+										<FaGuitar />
+										<span>Artits</span>
+										<IoIosArrowDown className="ml-auto" />
+									</>
+								)}
+							</Link>
+						</li>
+					)}
+					{(user.role === "SUPER_ADMIN" ||
+						user.role === "ARTIST") && (
+						<li>
+							<Link
+								to="/admin/musics"
+								className="w-full h-[50px] flex gap-2 items-center py-3 px-5 text-[18px] font-bold hover:bg-[#414452] text-[#eaeaea] border border-dashed border-transparent hover:border-admin-border-color transition-all ease-linear"
+							>
+								{isAsideExpand && !isHovering ? (
 									<FaMusic />
-									<span>Musics</span>
-									<IoIosArrowDown className="ml-auto" />
-								</>
-							)}
-						</Link>
-					</li>
-					<li>
-						<Link
-							to="/admin/users"
-							className="w-full h-[50px] flex gap-2 items-center py-3 px-5 text-[18px] font-bold hover:bg-[#414452] text-[#eaeaea] border border-dashed border-transparent hover:border-admin-border-color transition-all ease-linear"
-						>
-							{isAsideExpand && !isHovering ? (
-								<FaUsers />
-							) : (
-								<>
+								) : (
+									<>
+										<FaMusic />
+										<span>Musics</span>
+										<IoIosArrowDown className="ml-auto" />
+									</>
+								)}
+							</Link>
+						</li>
+					)}
+					{user.role === "SUPER_ADMIN" && (
+						<li>
+							<Link
+								to="/admin/users"
+								className="w-full h-[50px] flex gap-2 items-center py-3 px-5 text-[18px] font-bold hover:bg-[#414452] text-[#eaeaea] border border-dashed border-transparent hover:border-admin-border-color transition-all ease-linear"
+							>
+								{isAsideExpand && !isHovering ? (
 									<FaUsers />
-									<span>Users</span>
-									<IoIosArrowDown className="ml-auto" />
-								</>
-							)}
-						</Link>
-					</li>
+								) : (
+									<>
+										<FaUsers />
+										<span>Users</span>
+										<IoIosArrowDown className="ml-auto" />
+									</>
+								)}
+							</Link>
+						</li>
+					)}
 				</ul>
 			</nav>
 		</>

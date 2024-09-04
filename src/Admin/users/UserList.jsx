@@ -1,19 +1,33 @@
 import React, { useEffect, useState } from "react";
 import * as HttpClient from "../../utils/httpClient";
+import * as notify from "../../utils/toastifyMessage";
 import { Link, useLocation } from "react-router-dom";
 import { useQuery } from "./../../hooks/useQuery";
 import {
+	MdDelete,
 	MdKeyboardDoubleArrowLeft,
 	MdKeyboardDoubleArrowRight,
 } from "react-icons/md";
+import { FaEdit, FaEye } from "react-icons/fa";
 
 export default function UserList() {
-	const location = useLocation();
 	const query = useQuery();
+	const location = useLocation();
 
 	const [users, setUsers] = useState([]);
 	const [metadata, setMetadata] = useState({});
 	const [limit, setLimit] = useState(5);
+
+	const handleDelete = (id) => {
+		HttpClient.remove(`/users/${id}`, {}, true)
+			.then((data) => {
+				if (data.data) {
+					notify.showSuccess("Deleted Successful!");
+					setUsers(users.filter((user) => user.id !== id));
+				}
+			})
+			.catch();
+	};
 
 	const fetchUsers = () => {
 		HttpClient.get(
@@ -68,7 +82,28 @@ export default function UserList() {
 									<td>{user.gender}</td>
 									<td>{user.role}</td>
 									<td>{user.dob}</td>
-									<td></td>
+									<td className="flex justify-center items-center gap-1">
+										<Link
+											to={`/dashboard/users/${user.id}`}
+											className="bg-green-500 py-3 px-4 text-white rounded-lg"
+										>
+											<FaEdit />
+										</Link>
+										<Link
+											to={`/dashboard/users/${user.id}`}
+											className="bg-blue-500  py-3 px-4 text-white rounded-lg"
+										>
+											<FaEye />
+										</Link>
+										<button
+											onClick={() =>
+												handleDelete(user.id)
+											}
+											className="bg-red-500  py-3 px-4 text-white rounded-lg"
+										>
+											<MdDelete />
+										</button>
+									</td>
 								</tr>
 							);
 						})}

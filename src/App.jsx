@@ -1,6 +1,6 @@
 import { BrowserRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import AppRouting from "./routes/AppRouting";
+import AppRouting from "./AppRouting";
 
 function App() {
 	return (

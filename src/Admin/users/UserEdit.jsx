@@ -8,7 +8,6 @@ import * as notify from "./../../utils/toastifyMessage";
 export default function UserEdit() {
 	const navigate = useNavigate();
 	const { id } = useParams();
-	const [user, setUser] = useState({});
 	const [isSubmitting, setSubmitting] = useState(false);
 
 	const [formData, setFormData] = useState({
@@ -50,7 +49,6 @@ export default function UserEdit() {
 	const fetchUsers = () => {
 		HttpClient.get(`/users/${id}`, {}, true)
 			.then((data) => {
-				setUser(data.data.user);
 				setFormData({
 					first_name: data.data.user.first_name,
 					last_name: data.data.user.last_name,
@@ -135,7 +133,13 @@ export default function UserEdit() {
 							className="block w-full p-3 border"
 							name="dob"
 							onChange={handleChange}
-							value={formData.dob ? user.dob : ""}
+							value={
+								formData.dob
+									? new Date(
+											formData.dob
+									  ).toLocaleDateString()
+									: ""
+							}
 						/>
 					</div>
 					<div className="col-span-6">

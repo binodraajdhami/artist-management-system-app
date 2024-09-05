@@ -8,7 +8,6 @@ import * as notify from "./../../utils/toastifyMessage";
 export default function ArtistEdit() {
 	const navigate = useNavigate();
 	const { id } = useParams();
-	const [artist, setArtist] = useState({});
 	const [isSubmitting, setSubmitting] = useState(false);
 
 	const [formData, setFormData] = useState({
@@ -48,7 +47,6 @@ export default function ArtistEdit() {
 	const fetchArtist = () => {
 		HttpClient.get(`/artists/${id}`, {}, true)
 			.then((data) => {
-				setArtist(data.data.artist);
 				setFormData({
 					name: data.data.artist.name,
 					first_release_year: data.data.artist.first_release_year,

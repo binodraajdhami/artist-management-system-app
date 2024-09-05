@@ -23,6 +23,7 @@ import UserShow from "./Admin/users/UserShow";
 import UserEdit from "./Admin/users/UserEdit";
 
 // Artists
+import MusictByArtist from "./Admin/artists/MusictByArtist";
 import ArtistCreate from "./Admin/artists/ArtistCreate";
 import ArtistList from "./Admin/artists/ArtistList";
 import ArtistShow from "./Admin/artists/ArtistShow";
@@ -121,6 +122,18 @@ export default function AppRouting() {
 					element={
 						userRole == "ARTIST_MANAGER" ? (
 							<ArtistEdit />
+						) : (
+							<UnauthorizedPage />
+						)
+					}
+				/>
+
+				<Route
+					path="/admin/artists/:id/musics"
+					element={
+						userRole == "SUPER_ADMIN" ||
+						userRole == "ARTIST_MANAGER" ? (
+							<MusictByArtist />
 						) : (
 							<UnauthorizedPage />
 						)

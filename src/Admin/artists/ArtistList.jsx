@@ -9,6 +9,7 @@ import {
 	MdKeyboardDoubleArrowRight,
 } from "react-icons/md";
 import { FaEdit, FaEye } from "react-icons/fa";
+import { FaMusic } from "react-icons/fa6";
 import GotoBack from "../../components/GotoBack";
 
 export default function ArtistList() {
@@ -196,7 +197,7 @@ export default function ArtistList() {
 					</tr>
 				</thead>
 				<tbody>
-					{artists.length > 0 &&
+					{artists?.length > 0 &&
 						artists.map((user, i) => {
 							return (
 								<tr key={i}>
@@ -216,6 +217,12 @@ export default function ArtistList() {
 										).toLocaleDateString()}
 									</td>
 									<td className="flex justify-start items-center gap-1">
+										<Link
+											to={`/admin/artists/${user.id}/musics`}
+											className="bg-purple-600 py-[9px] px-4 text-white rounded-lg flex items-center justify-between gap-1"
+										>
+											<FaMusic /> <span>Music</span>
+										</Link>
 										<Link
 											to={`/admin/artists/${user.id}/edit`}
 											className="bg-green-500 py-3 px-4 text-white rounded-lg"

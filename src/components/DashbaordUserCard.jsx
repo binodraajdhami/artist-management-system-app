@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaUsers } from "react-icons/fa";
 import * as HttpClient from "./../utils/httpClient";
+import { Link } from "react-router-dom";
 
 export default function DashbaordUserCard() {
 	const [users, setUsers] = useState([]);
@@ -22,13 +23,15 @@ export default function DashbaordUserCard() {
 			<div>
 				<span className="text-[#666] font-bold text-[18px]">Users</span>
 				<h4 className="text-[#056464] font-bold text-[30px]">
-					{users.length}
+					{users?.length}
 				</h4>
 				<p className="text-[#666] font-light">
-					<span>Previous Month</span>
-					<span className="bg-[#056464] bg-opacity-10 py-1 px-2 ml-2 text-[10px] rounded-lg font-bold">
-						+6.2%
-					</span>
+					<Link
+						to="/admin/users"
+						className="btn bg-[#0fb450] text-black px-5 py-2"
+					>
+						View Details
+					</Link>
 				</p>
 			</div>
 			<div className="flex justify-center items-center w-[50px] h-[50px] rounded-full bg-[#056464] text-white text-xl">

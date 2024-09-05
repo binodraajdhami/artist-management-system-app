@@ -80,7 +80,7 @@ export default function MusicList() {
 					</tr>
 				</thead>
 				<tbody>
-					{musics.length > 0 &&
+					{musics?.length > 0 &&
 						musics.map((music, i) => {
 							return (
 								<tr key={i}>

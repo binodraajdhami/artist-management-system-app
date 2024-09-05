@@ -8,7 +8,7 @@ export default function DashbaordMusicCard() {
 	const fetchMusics = () => {
 		HttpClient.get("/musics", {}, true)
 			.then((data) => {
-				setMusics(data.data);
+				setMusics(data.data.musics);
 			})
 			.catch();
 	};

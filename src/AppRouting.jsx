@@ -28,6 +28,7 @@ import ArtistShow from "./Admin/artists/ArtistShow";
 import ArtistEdit from "./Admin/artists/ArtistEdit";
 
 // Musics
+import MusicCreate from "./Admin/musics/MusicCreate";
 import MusicList from "./Admin/musics/MusicList";
 import MusicShow from "./Admin/musics/MusicShow";
 import MusicEdit from "./Admin/musics/MusicEdit";
@@ -53,6 +54,7 @@ export default function AppRouting() {
 					path="/admin/artists/:id/edit"
 					element={<ArtistEdit />}
 				/>
+				<Route path="/admin/music/create" element={<MusicCreate />} />
 				<Route path="/admin/musics" element={<MusicList />} />
 				<Route path="/admin/musics/:id" element={<MusicShow />} />
 				<Route path="/admin/musics/:id/edit" element={<MusicEdit />} />

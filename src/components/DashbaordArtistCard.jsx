@@ -8,7 +8,7 @@ export default function DashbaordArtistCard() {
 	const fetchArtits = () => {
 		HttpClient.get("/artists", {}, true)
 			.then((data) => {
-				setArtits(data.data);
+				setArtits(data.data.artists);
 			})
 			.catch();
 	};

@@ -100,7 +100,7 @@ export default function UserList() {
 											user.dob
 										).toLocaleDateString()}
 									</td>
-									<td className="flex justify-center items-center gap-1">
+									<td className="flex justify-start items-center gap-1">
 										<Link
 											to={`/admin/users/${user.id}/edit`}
 											className="bg-green-500 py-3 px-4 text-white rounded-lg"

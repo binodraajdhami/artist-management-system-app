@@ -222,7 +222,6 @@ export default function UserCreate() {
 						<select
 							name="role"
 							onChange={handleChange}
-							defaultValue="ARTIST"
 							className="block w-full p-3 border"
 						>
 							<option value="">Select Role</option>

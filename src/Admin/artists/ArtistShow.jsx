@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import * as HttpClient from "../../utils/httpClient";
+import * as notify from "../../utils/toastifyMessage";
 import GotoBack from "../../components/GotoBack";
 
 export default function ArtistShow() {
@@ -12,7 +13,9 @@ export default function ArtistShow() {
 			.then((data) => {
 				setArtist(data.data.artist);
 			})
-			.catch();
+			.catch((err) => {
+				notify.showError(err.response.data.message);
+			});
 	};
 
 	useEffect(() => {

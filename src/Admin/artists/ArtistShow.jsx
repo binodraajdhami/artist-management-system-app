@@ -10,7 +10,7 @@ export default function ArtistShow() {
 	const fetchArtist = () => {
 		HttpClient.get(`/artists/${id}`, {}, true)
 			.then((data) => {
-				setArtist(data.data);
+				setArtist(data.data.artist);
 			})
 			.catch();
 	};

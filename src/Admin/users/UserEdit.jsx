@@ -131,7 +131,7 @@ export default function UserEdit() {
 					</div>
 					<div className="col-span-6">
 						<input
-							type={user.dob ? "text" : "date"}
+							type={formData.dob ? "text" : "date"}
 							className="block w-full p-3 border"
 							name="dob"
 							onChange={handleChange}

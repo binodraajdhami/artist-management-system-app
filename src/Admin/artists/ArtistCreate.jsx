@@ -150,7 +150,6 @@ export default function ArtistCreate() {
 							name="no_of_albums_release"
 							placeholder="No of Albums Release"
 							onChange={handleChange}
-							value={1}
 						/>
 						{formError.no_of_albums_release ? (
 							<span className="p-2 px-3 text-white bg-red-400 w-full inline-block">

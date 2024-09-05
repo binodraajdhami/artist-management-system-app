@@ -26,6 +26,8 @@ export default function ArtistEdit() {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		setSubmitting(true);
+		console.log(formData);
+
 		HttpClient.put(`/artists/${id}`, { body: formData }, true)
 			.then((data) => {
 				setSubmitting(false);

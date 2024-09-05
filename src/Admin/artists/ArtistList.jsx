@@ -16,7 +16,8 @@ export default function ArtistList() {
 	const location = useLocation();
 
 	const [uploadForm, setUploadForm] = useState(false);
-	const [selectedFile, setSelectedFile] = useState([]);
+	const [isEporting, setExporting] = useState(false);
+	const [selectedFile, setSelectedFile] = useState(null);
 	const [artists, setArtist] = useState([]);
 	const [metadata, setMetadata] = useState({});
 	const [limit, setLimit] = useState(5);
@@ -29,7 +30,9 @@ export default function ArtistList() {
 					setArtist(artists.filter((user) => user.id !== id));
 				}
 			})
-			.catch();
+			.catch((err) => {
+				notify.showError(err.response.data.message);
+			});
 	};
 
 	const fetchArtists = () => {
@@ -44,31 +47,61 @@ export default function ArtistList() {
 				setArtist(data.data.artists);
 				setMetadata(data.data.metadata);
 			})
-			.catch();
+			.catch((err) => {
+				notify.showError(err.response.data.message);
+			});
 	};
 
 	useEffect(() => {
 		fetchArtists();
 	}, [location.search, limit]);
 
-	// get file
+	// handle selected files set
 	const handleFile = (e) => {
 		if (e.target.files && e.target.files.length > 0) {
 			setSelectedFile(e.target.files[0]);
-			console.log(e.target.files[0]);
 		}
 	};
 
-	// submit now
-	const handleUpload = (e) => {
+	//import csv
+	const handleImportCSVFile = (e) => {
 		e.preventDefault();
 
-		HttpClient.upload(selectedFile)
+		if (selectedFile != null) {
+			HttpClient.upload(selectedFile)
+				.then((data) => {
+					notify.showSuccess("Uploaded Successful!");
+					setUploadForm(false);
+					fetchArtists();
+				})
+				.catch((err) => {
+					setUploadForm(false);
+					if (typeof err == "string") {
+						notify.showError(JSON.parse(err).message);
+					} else {
+						notify.showError(err.response.data.message);
+					}
+				});
+		} else {
+			notify.showError("Please select CSV FIle!");
+		}
+	};
+
+	// export data into csv
+	const exportArtistToSCSV = () => {
+		setExporting(true);
+		HttpClient.get("/artists/export/csv", {}, true)
 			.then((data) => {
-				notify.showSuccess("Uploaded Successful!");
+				setExporting(false);
+				notify.showSuccess("Export Successful!");
 			})
 			.catch((err) => {
-				notify.showError(err);
+				setExporting(false);
+				if (typeof err == "string") {
+					notify.showError(JSON.parse(err).message);
+				} else {
+					notify.showError(err.response.data.message);
+				}
 			});
 	};
 
@@ -76,7 +109,7 @@ export default function ArtistList() {
 		<div className="relative">
 			{uploadForm && (
 				<form
-					onSubmit={handleUpload}
+					onSubmit={handleImportCSVFile}
 					action=""
 					className="absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] flex flex-col justify-start items-center gap-7 z-50 border p-10 bg-white rounded-lg m-auto w-[500px] min-h-[300px] shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)]"
 					encType="multipart/form-data"
@@ -116,8 +149,14 @@ export default function ArtistList() {
 						>
 							Import CSV
 						</button>
-						<button className="btn btn-secondary text-white">
+						<button
+							onClick={exportArtistToSCSV}
+							className="btn btn-secondary text-white"
+						>
 							Export CSV
+							{isEporting && (
+								<span className="loading loading-spinner loading-xs"></span>
+							)}
 						</button>
 						<Link
 							to="/admin/artist/create"

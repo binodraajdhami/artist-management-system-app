@@ -27,7 +27,9 @@ export default function UserList() {
 					setUsers(users.filter((user) => user.id !== id));
 				}
 			})
-			.catch();
+			.catch((err) => {
+				notify.showError(err.response.data.message);
+			});
 	};
 
 	const fetchUsers = () => {
@@ -42,7 +44,9 @@ export default function UserList() {
 				setUsers(data.data.users);
 				setMetadata(data.data.metadata);
 			})
-			.catch();
+			.catch((err) => {
+				notify.showError(err.response.data.message);
+			});
 	};
 
 	useEffect(() => {

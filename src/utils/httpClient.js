@@ -90,8 +90,6 @@ export const upload = (file) => {
 	const baseUrl =
 		process.env.REACT_APP_BASE_URL || "http://localhost:8080/api";
 
-	console.log(file);
-
 	return new Promise((resolve, reject) => {
 		const xhttp = new XMLHttpRequest();
 		const formData = new FormData();
@@ -110,7 +108,7 @@ export const upload = (file) => {
 
 		xhttp.open(
 			"POST",
-			`${baseUrl}/artists/upload/csv/?token=${localStorage.getItem(
+			`${baseUrl}/artists/import/csv/?token=${localStorage.getItem(
 				"token"
 			)}`,
 			true

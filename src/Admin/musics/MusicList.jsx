@@ -28,7 +28,9 @@ export default function MusicList() {
 					setMusics(musics.filter((music) => music.id !== id));
 				}
 			})
-			.catch();
+			.catch((err) => {
+				notify.showError(err.response.data.message);
+			});
 	};
 
 	const fetchMusics = () => {
@@ -43,7 +45,9 @@ export default function MusicList() {
 				setMusics(data.data.musics);
 				setMetadata(data.data.metadata);
 			})
-			.catch();
+			.catch((err) => {
+				notify.showError(err.response.data.message);
+			});
 	};
 
 	useEffect(() => {

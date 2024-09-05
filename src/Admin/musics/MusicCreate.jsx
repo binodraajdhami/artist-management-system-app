@@ -135,9 +135,9 @@ export default function MusicCreate() {
 							<option value="ROCK">ROCK</option>
 							<option value="JAZZ">JAZZ</option>
 						</select>
-						{formError.genderError ? (
+						{formError.genreError ? (
 							<span className="p-2 px-3 text-white bg-red-400 w-full inline-block">
-								{formError.genderError}
+								{formError.genreError}
 							</span>
 						) : (
 							""

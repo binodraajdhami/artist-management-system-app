@@ -17,6 +17,7 @@ export default function RegisterPage() {
 		dob: null,
 		gender: null,
 		address: null,
+		role: null,
 	});
 	const [formError, setFormError] = useState({
 		firsNameError: null,
@@ -27,6 +28,7 @@ export default function RegisterPage() {
 		dobError: null,
 		genderError: null,
 		addressError: null,
+		roleError: null,
 	});
 
 	const handleChange = (e) => {
@@ -48,6 +50,7 @@ export default function RegisterPage() {
 			genderError: formData.gender == null ? "Gender is required!" : null,
 			addressError:
 				formData.address == null ? "Address is required!" : null,
+			roleError: formData.role == null ? "Role is required!" : null,
 		});
 	};
 
@@ -180,6 +183,23 @@ export default function RegisterPage() {
 					{formError.genderError ? (
 						<span className="p-2 px-3 text-white bg-red-400 w-full inline-block">
 							{formError.genderError}
+						</span>
+					) : (
+						""
+					)}
+					<select
+						name="role"
+						onChange={handleChange}
+						className="block w-full p-3 border mt-5"
+					>
+						<option value="">Select Role</option>
+						<option value="ARTIST">ARTIST</option>
+						<option value="ARTIST_MANAGER">ARTIST_MANAGER</option>
+						<option value="SUPER_ADMIN">SUPER_ADMIN</option>
+					</select>
+					{formError.roleError ? (
+						<span className="p-2 px-3 text-white bg-red-400 w-full inline-block">
+							{formError.roleError}
 						</span>
 					) : (
 						""

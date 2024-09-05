@@ -48,7 +48,7 @@ export default function AdminLayout() {
 				/>
 			</aside>
 			<main
-				className={`py-10 px-12 absolute z-10 top-[50px] left-0 h-[calc(100vh-50px)] bg-[#f5f6fa] transition-all ease-in-out ${
+				className={`py-10 px-12 absolute z-10 top-[50px] left-0 min-h-[calc(100vh+100px)] bg-[#f5f6fa] transition-all ease-in-out ${
 					isAsideExpand && !isHovering
 						? "ml-[70px] w-[calc(100%-70px)]"
 						: "ml-[275px] w-[calc(100%-275px)]"

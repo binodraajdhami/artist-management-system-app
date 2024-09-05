@@ -9,6 +9,7 @@ import {
 	MdKeyboardDoubleArrowRight,
 } from "react-icons/md";
 import { FaEdit, FaEye } from "react-icons/fa";
+import GotoBack from "../../components/GotoBack";
 
 export default function UserList() {
 	const query = useQuery();
@@ -51,7 +52,16 @@ export default function UserList() {
 	return (
 		<div>
 			<div className="border-b pb-3 mb-3">
-				<h1 className="text-xl font-bold">User List</h1>
+				<GotoBack />
+				<div className="flex justify-between items-center">
+					<h1 className="text-xl font-bold">User List</h1>
+					<Link
+						to="/admin/user/create"
+						className="btn btn-success text-white"
+					>
+						Create User
+					</Link>
+				</div>
 			</div>
 			<table className="table table-bordered mb-4 border-b pb-3">
 				<thead>
@@ -85,16 +95,20 @@ export default function UserList() {
 											{user.role}
 										</span>
 									</td>
-									<td>{user.dob}</td>
+									<td>
+										{new Date(
+											user.dob
+										).toLocaleDateString()}
+									</td>
 									<td className="flex justify-center items-center gap-1">
 										<Link
-											to={`/dashboard/users/${user.id}`}
+											to={`/admin/users/${user.id}/edit`}
 											className="bg-green-500 py-3 px-4 text-white rounded-lg"
 										>
 											<FaEdit />
 										</Link>
 										<Link
-											to={`/dashboard/users/${user.id}`}
+											to={`/admin/users/${user.id}`}
 											className="bg-blue-500  py-3 px-4 text-white rounded-lg"
 										>
 											<FaEye />

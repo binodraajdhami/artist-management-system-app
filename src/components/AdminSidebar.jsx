@@ -35,7 +35,7 @@ export default function AdminSidebar({ isAsideExpand, isHovering }) {
 						user.role === "ARTIST_MANAGER") && (
 						<li>
 							<Link
-								to="/admin/artits"
+								to="/admin/artists"
 								className="w-full h-[50px] flex gap-2 items-center py-3 px-5 text-[18px] font-bold hover:bg-[#414452] text-[#eaeaea] border border-dashed border-transparent hover:border-admin-border-color transition-all ease-linear"
 							>
 								{isAsideExpand && !isHovering ? (

@@ -12,10 +12,11 @@ import { FaEdit, FaEye } from "react-icons/fa";
 import GotoBack from "../../components/GotoBack";
 
 export default function ArtistList() {
-	const user = JSON.parse(localStorage.getItem("user"));
 	const query = useQuery();
 	const location = useLocation();
 
+	const [uploadForm, setUploadForm] = useState(false);
+	const [selectedFile, setSelectedFile] = useState([]);
 	const [artists, setArtist] = useState([]);
 	const [metadata, setMetadata] = useState({});
 	const [limit, setLimit] = useState(5);
@@ -50,18 +51,81 @@ export default function ArtistList() {
 		fetchArtists();
 	}, [location.search, limit]);
 
+	// get file
+	const handleFile = (e) => {
+		if (e.target.files && e.target.files.length > 0) {
+			setSelectedFile(e.target.files[0]);
+			console.log(e.target.files[0]);
+		}
+	};
+
+	// submit now
+	const handleUpload = (e) => {
+		e.preventDefault();
+
+		HttpClient.upload(selectedFile)
+			.then((data) => {
+				notify.showSuccess("Uploaded Successful!");
+			})
+			.catch((err) => {
+				notify.showError(err);
+			});
+	};
+
 	return (
-		<div>
+		<div className="relative">
+			{uploadForm && (
+				<form
+					onSubmit={handleUpload}
+					action=""
+					className="absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] flex flex-col justify-start items-center gap-7 z-50 border p-10 bg-white rounded-lg m-auto w-[500px] min-h-[300px] shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)]"
+					encType="multipart/form-data"
+				>
+					<h1 className="text-black text-2xl font-bold border-b-2 pb-2">
+						Upload CSF File
+					</h1>
+					<input
+						type="file"
+						name="csv"
+						onChange={handleFile}
+						accept="text/csv"
+					/>
+					<button
+						type="submit"
+						className="btn btn-success text-white px-10"
+					>
+						Upload CSV File
+					</button>
+					<button
+						onClick={() => setUploadForm(false)}
+						type="button"
+						className="btn btn-warning text-white px-10"
+					>
+						Cancel
+					</button>
+				</form>
+			)}
 			<div className="border-b pb-3 mb-3">
 				<GotoBack />
 				<div className="flex justify-between items-center">
 					<h1 className="text-xl font-bold">Artist List</h1>
-					<Link
-						to="/admin/artist/create"
-						className="btn btn-success text-white"
-					>
-						Create Artist
-					</Link>
+					<div className="flex gap-1">
+						<button
+							onClick={() => setUploadForm(true)}
+							className="btn btn-primary text-white"
+						>
+							Import CSV
+						</button>
+						<button className="btn btn-secondary text-white">
+							Export CSV
+						</button>
+						<Link
+							to="/admin/artist/create"
+							className="btn btn-success text-white"
+						>
+							Create Artist
+						</Link>
+					</div>
 				</div>
 			</div>
 			<table className="table table-bordered mb-4 border-b pb-3">

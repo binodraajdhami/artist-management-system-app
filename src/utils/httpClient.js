@@ -1,3 +1,4 @@
+import process from "process";
 import publicHttpClient from "./publicHttpClient";
 import protectedHttpClient from "./protectedHttpClient";
 
@@ -83,4 +84,37 @@ export const remove = (
 				params,
 				responseType,
 		  });
+};
+
+export const upload = (file) => {
+	const baseUrl =
+		process.env.REACT_APP_BASE_URL || "http://localhost:8080/api";
+
+	console.log(file);
+
+	return new Promise((resolve, reject) => {
+		const xhttp = new XMLHttpRequest();
+		const formData = new FormData();
+
+		formData.append("csv", file, file.name);
+
+		xhttp.onreadystatechange = () => {
+			if (xhttp.readyState === 4) {
+				if (xhttp.status === 200) {
+					resolve(xhttp.response);
+				} else {
+					reject(xhttp.response);
+				}
+			}
+		};
+
+		xhttp.open(
+			"POST",
+			`${baseUrl}/artists/upload/csv/?token=${localStorage.getItem(
+				"token"
+			)}`,
+			true
+		);
+		xhttp.send(formData || null);
+	});
 };

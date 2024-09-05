@@ -58,6 +58,22 @@ export default function ArtistShow() {
 						<th>Birth Date</th>
 						<td>{new Date(artist.dob).toLocaleDateString()}</td>
 					</tr>
+					<tr>
+						<th>Total Musics</th>
+						<td>
+							<ul>
+								{artist.Music?.length > 0 &&
+									artist.Music.map((music, index) => (
+										<li
+											key={index}
+											className="block m-1 badge"
+										>
+											<span>{music.title}</span>
+										</li>
+									))}
+							</ul>
+						</td>
+					</tr>
 				</thead>
 			</table>
 		</div>

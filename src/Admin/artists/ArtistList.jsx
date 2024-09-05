@@ -56,16 +56,12 @@ export default function ArtistList() {
 				<GotoBack />
 				<div className="flex justify-between items-center">
 					<h1 className="text-xl font-bold">Artist List</h1>
-					{user.role === "ARTIST_MANAGER" ? (
-						<Link
-							to="/admin/artist/create"
-							className="btn btn-success text-white"
-						>
-							Create Artist
-						</Link>
-					) : (
-						<></>
-					)}
+					<Link
+						to="/admin/artist/create"
+						className="btn btn-success text-white"
+					>
+						Create Artist
+					</Link>
 				</div>
 			</div>
 			<table className="table table-bordered mb-4 border-b pb-3">

@@ -1,1 +1,3 @@
-# Artist Management System
+## Live Demo
+
+Link: https://ams-app.netlify.app
